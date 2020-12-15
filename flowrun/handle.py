@@ -58,8 +58,3 @@ class EchoerHandler():
                 action = step['metadata']['name']
                 print(f'检测到action{action}')
             self.version = int(version) - 1
-
-
-print('sse start watching')
-echoer_handler = EchoerHandler(url='http://0.0.0.0:8000')
-echoer_handler.artifact_connect()
