@@ -3,10 +3,11 @@ import requests
 
 
 class Action:
-    def __init__(self, req_url, name):
+    def __init__(self, echoer_url,req_url, name):
         self.name = name
         self.req_url = req_url
         self.params = ''
+        self.echoer_url = echoer_url
 
     def add_data(self, dictData):
         if not isinstance(dictData, dict):
@@ -39,7 +40,7 @@ class Action:
         data = self.generate()
         action_data = {"data": data}
         with error_suppress(false):
-            req = requests.post(self.req_url, json=action_data, timeout=30)
+            req = requests.post(self.echoer_url, json=action_data, timeout=30)
             if req.status_code == 200:
                 return True
             else:
