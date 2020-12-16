@@ -1,22 +1,10 @@
-import traceback
-
 import requests
-import django
-import os
 import json
 from sseclient import SSEClient
-from utils import error_suppress
+from utils import error_suppress, connect_false, false
 
 
-def connectFalse():
-    print('发送 echoer 错误', traceback.format_exc())
-
-
-def flowFalse():
-    return None
-
-
-class EchoerHandler():
+class EchoerHandler:
     def __init__(self, url):
         self.action = []
         self.model = []
@@ -26,16 +14,17 @@ class EchoerHandler():
         self.version = 0
         self.first_connect()
 
-    def first_connect(self):
-
-        with error_suppress(connectFalse):
-            data = requests.get(f'{self.url}/flowrun')
-            self.version = int(data.json()[-1]['metadata']['version']) - 100
-
-    def get_flow_name(self, data):
-        with error_suppress(flowFalse):
+    @staticmethod
+    def get_flow_name(data):
+        with error_suppress(false):
             name = '_'.join(data.split('_')[:-1])
             return name
+
+    def first_connect(self):
+
+        with error_suppress(connect_false):
+            data = requests.get(f'{self.url}/flowrun')
+            self.version = int(data.json()[-1]['metadata']['version']) - 100
 
     def add_action(self, action, model, success, fail):
         self.action.append(action)
