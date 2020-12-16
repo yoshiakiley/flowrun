@@ -1,6 +1,6 @@
+from .utils import error_suppress, false
+from .step import Step
 import requests
-from utils import error_suppress, false
-from step import Step
 
 
 class FlowRun:

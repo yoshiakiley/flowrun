@@ -1,4 +1,4 @@
-from utils import error_suppress, false
+from .utils import error_suppress, false
 import requests
 
 
